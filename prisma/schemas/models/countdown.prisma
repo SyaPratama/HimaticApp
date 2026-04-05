@@ -1,0 +1,6 @@
+model Countdowns {
+    id String @id @default(cuid())
+    countdown Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

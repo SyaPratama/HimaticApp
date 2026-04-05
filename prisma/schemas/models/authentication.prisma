@@ -1,0 +1,10 @@
+model Sessions {
+    id String @id @default(cuid())
+    refreshToken String @db.Text
+    refreshExpiresAt Int?
+    accessToken String @db.Text
+    accessExpiresAt Int?
+    user User @relation(fields: [userId], references: [id])
+    userId String
+    createdAt DateTime @default(now())
+}
