@@ -1,14 +1,22 @@
-export default function RootLayout({
+import "@/styles/globals.css"
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html
       lang="en"
-      className={`h-full antialiased`}
+      className={cn("h-full", "antialiased", "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
+
+export default RootLayout

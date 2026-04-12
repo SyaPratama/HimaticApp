@@ -1,0 +1,102 @@
+model Sessions {
+  id               String   @id @default(cuid())
+  refreshToken     String   @db.Text
+  refreshExpiresAt Int?
+  accessToken      String   @db.Text
+  accessExpiresAt  Int?
+  user             User     @relation(fields: [userId], references: [id])
+  userId           String
+  createdAt        DateTime @default(now())
+}
+
+model Countdowns {
+  id        String   @id @default(cuid())
+  countdown Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id            String     @id @default(cuid())
+  name          String
+  email         String?    @unique
+  emailVerified DateTime?
+  password      String?
+  role          Role       @default(USER)
+  account       Account?
+  activityLog   Activity[]
+  profileUser   Profiles?
+  session       Sessions[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model FilePath {
+  id          String            @id @default(cuid())
+  name        String
+  type        String
+  filePath    String
+  size        Int
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  avatarFiles FilesOnProfiles[]
+}
+
+model FilesOnProfiles {
+  id            String   @id @default(cuid())
+  filePath      FilePath @relation(fields: [fileImagePath], references: [id])
+  fileImagePath String
+  profile       Profiles @relation(fields: [profileId], references: [id])
+  profileId     String   @unique
+
+  @@unique([fileImagePath, profileId])
+}
+
+model Profiles {
+  id          String           @id @default(cuid())
+  username    String           @unique
+  user        User             @relation(fields: [userId], references: [id])
+  userId      String           @unique
+  avatarPath  FilesOnProfiles?
+  phoneNumber String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  description String   @db.Text
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime @default(now())
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  user              User     @relation(fields: [userId], references: [id])
+  userId            String
+  provider          Provider
+  providerAccountId String
+  createdAt         DateTime
+
+  @@unique([userId])
+}
+
+enum Provider {
+  FACEBOOK
+  GOOGLE
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../client/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}

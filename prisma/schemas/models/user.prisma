@@ -22,7 +22,6 @@ model FilePath {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     avatarFiles FilesOnProfiles[]
-    postFiles FileOnPosts[]
 }
 
 model FilesOnProfiles {
