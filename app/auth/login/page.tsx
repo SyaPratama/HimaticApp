@@ -1,11 +1,5 @@
-import HeroSection from "@/containers/landing-page/hero-section";
+import LoginClient from "@/containers/auth-page/login";
 
-const Page = () => {
-  return(
-    <main>
-      <HeroSection/>
-    </main>
-  );
+export default function Page(){
+  return <LoginClient />;
 }
-
-export default Page
