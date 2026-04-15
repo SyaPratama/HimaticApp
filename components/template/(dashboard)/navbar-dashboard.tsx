@@ -42,7 +42,7 @@ const NavbarDashboard: React.FC<Navbar> = ({ isAdmin }) => {
     <nav className="bg-mono-800 border-b border-mono-700 px-10 py-3 fixed top-0 w-full z-50">
       <div className="flex items-center justify-between text-mono-50">
 
-        <Link href={isAdmin ? "/dashboard/admin" : "/dashboard/participant"}>
+        <Link href={"/"}>
             <span className="font-bold text-2xl">LOGO BRAND</span>
         </Link>
         <DropdownMenu>

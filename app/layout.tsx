@@ -1,12 +1,6 @@
 import "@/styles/globals.css"
 import { cn } from "@/libs/utils";
-import localFont from "next/font/local";
-
-const Grotesk = localFont({
-  src: "../public/fonts/SpaceGrotesk.woff2",
-  display: "swap",
-  variable: "--font-grotesk"
-})
+import { Grotesk } from "@/libs/fonts";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
