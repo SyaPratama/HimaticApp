@@ -6,6 +6,25 @@ import ListItem from "../../ui/list-item";
 import { ReactElement } from "react";
 import { UserIcon } from "lucide-react";
 
+interface NavigationCompetition {
+    title: string;
+    description: string;
+    href: string;
+}
+
+const navigationContent: NavigationCompetition[] = [
+    {
+        title: "UI/UX",
+        description: "a creative contest where participants design user-friendly, to solve real-world problems.",
+        href: "/competition/uiux",
+    },
+    {
+        title: "Competitive Programming",
+        description: "a sport where participantsolve well-defined, logic-based algorithm and memory constraints.",
+        href: "/competition/cp"
+    }
+]
+
 const Navbar = (): ReactElement => {
     return (
         <nav className="bg-mono-900 border-b border-mono-800 px-10 py-3 sticky top-0 z-50">
@@ -16,16 +35,15 @@ const Navbar = (): ReactElement => {
                                 <Link href={"/"} className="text-lg">About</Link>
                             </NavigationMenuItem>
                         <NavigationMenuList>
-                            <NavigationMenuItem className="">
+                            <NavigationMenuItem>
                                 <NavigationMenuTrigger className="text-lg font-normal">Competition</NavigationMenuTrigger>
                                 <NavigationMenuContent className="bg-mono-800 text-white">
-                                    <ul className=" w-80">
-                                        <ListItem href="/test" title="UI/UX">
-                                            a creative contest where participants design user-friendly, to solve real-world problems.
-                                        </ListItem>
-                                         <ListItem href="/test" title="Competitive Programming">
-                                            a sport where participantsolve well-defined, logic-based algorithm and memory constraints.
-                                        </ListItem>
+                                    <ul className=" w-80 space-y-1">
+                                        { navigationContent.map(item => (
+                                            <ListItem className="hover:bg-mono-500/25 rounded-lg" key={item.title} href={item.href} title={item.title}>
+                                                {item.description}
+                                            </ListItem>
+                                        )) }
                                     </ul>
                                 </NavigationMenuContent>
                             </NavigationMenuItem>

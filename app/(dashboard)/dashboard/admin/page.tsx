@@ -1,5 +1,7 @@
-import { redirect } from "next/navigation";
+import AdminOverviewClient from "@/containers/dashboard-page/admin/overview";
 
-export default function Page(){
-  redirect('/dashboard/admin/overview');
+export const metadata = { title: 'Overview' };
+
+export default function Page() {
+  return <AdminOverviewClient />;
 }

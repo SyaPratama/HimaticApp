@@ -15,7 +15,6 @@ interface SidebarItem {
 
 interface SidebarProps {
   items: SidebarItem[];
-  isAdmin?: boolean;
   className?: string;
 }
 

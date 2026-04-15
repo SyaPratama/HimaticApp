@@ -1,5 +1,5 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,55 +10,75 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { menuType } from "@/types";
-import { CardSim, Settings, UserIcon } from "lucide-react";
-import { ReactElement } from "react";
+import Link from "next/link";
+
+interface Navbar {
+    isAdmin: boolean
+}
+
 
 const menuGroup: Record<string, menuType[]> = {
   account: [
     {
       name: "Profile",
-      shortcut: true,
-      shortcutIcon: <UserIcon />,
+      shortcut: false,
+      href: "participant/profile",
     },
     {
       name: "Settings",
-      shortcut: true,
-      shortcutIcon: <Settings />,
+      shortcut: false,
+      href: "participant/settings",
     },
     {
       name: "Payment",
-      shortcut: true,
-      shortcutIcon: <CardSim />,
+      shortcut: false,
+      href: "participant/payment",
     },
   ],
 };
 
-const NavbarDashboard = (): ReactElement => {
+const NavbarDashboard: React.FC<Navbar> = ({ isAdmin }) => {
   return (
     <nav className="bg-mono-800 border-b border-mono-700 px-10 py-3 fixed top-0 w-full z-50">
       <div className="flex items-center justify-between text-mono-50">
-        <span className="font-bold text-2xl">LOGO BRAND</span>
+
+        <Link href={isAdmin ? "/dashboard/admin" : "/dashboard/participant"}>
+            <span className="font-bold text-2xl">LOGO BRAND</span>
+        </Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar className="w-10 h-10">
               <AvatarImage src={"/images/avatar-placeholder.png"} />
-              <AvatarFallback>Avatar Placeholder</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-48 mr-4 mt-2 p-3 bg-mono-700 text-mono-100">
+          <DropdownMenuContent className="w-48 mr-4 mt-2 p-2 bg-mono-700 text-mono-100">
+            { !isAdmin ? 
             <DropdownMenuGroup className="space-y-1 border-b py-2 border-b-mono-500/50">
-              <DropdownMenuLabel className="text-mono-400">My Account</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-mono-400">
+                My Account
+              </DropdownMenuLabel>
               {menuGroup.account.map((item) => (
-                <DropdownMenuItem key={item.name} className="px-3 py-2">
-                  {item.name}
-                  <DropdownMenuShortcut>
-                    {item.shortcutIcon}
-                  </DropdownMenuShortcut>
-                </DropdownMenuItem>
+                <Link href={item.href} key={item.name}>
+                  <DropdownMenuItem className="px-3 py-2">
+                    {item.name}
+                    {item.shortcut ? (
+                      <DropdownMenuShortcut>
+                        {item.shortcutIcon}
+                      </DropdownMenuShortcut>
+                    ) : (
+                      <></>
+                    )}
+                  </DropdownMenuItem>
+                </Link>
               ))}
             </DropdownMenuGroup>
+            : <></>
+              }
             <DropdownMenuGroup className="py-2">
-                <DropdownMenuItem className="px-3 py-2">Logout</DropdownMenuItem>
+                <DropdownMenuLabel className="text-mono-400">
+                    System
+                </DropdownMenuLabel>
+              <DropdownMenuItem className="px-3 py-2">Logout</DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

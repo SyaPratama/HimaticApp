@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link";
 import { PropsWithChildren } from "react";
 import { usePathname } from "next/navigation";
 import { ArrowLeft, User, Settings, CreditCard } from "lucide-react";
@@ -25,14 +24,10 @@ export default function AccountLayout({ children }: PropsWithChildren) {
 
   return (
     <div className="flex">
-      {/* Account sidebar (fixed full-height) */}
       <SidebarAccount items={items} groups={groups} backHref="/dashboard/participant" backLabel="Kembali" backIcon={<ArrowLeft className="w-4 h-4" />} />
 
-      {/* Content area (add left margin to account for fixed sidebar) */}
       <div className="flex-1 ml-64 p-4">
-        {/* Breadcrumb (shadcn style) */}
         <div>
-          {/* Breadcrumb component will render appropriate styling */}
           <Breadcrumb items={[{ title: 'Dashboard', href: '/dashboard/participant' }, { title: active || 'Profile' }]} />
         </div>
 

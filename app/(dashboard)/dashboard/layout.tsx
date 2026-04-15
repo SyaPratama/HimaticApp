@@ -29,7 +29,7 @@ export default function DashboardLayout({
     {
       icon: <Home className="w-5 h-5" />,
       label: "Overview",
-      href: "/dashboard/admin/overview",
+      href: "/dashboard/admin",
       active: pathname.includes("/dashboard/admin/overview"),
     },
     {
@@ -92,12 +92,11 @@ export default function DashboardLayout({
 
   return (
     <div className="flex lg:max-h-full min-h-screen bg-mono-900">
-      {showGlobalSidebar && <NavbarDashboard />}
+      {showGlobalSidebar && <NavbarDashboard isAdmin={isAdmin} />}
 
       {showGlobalSidebar ? (
         <Sidebar
           items={isAdmin ? adminItems : participantItems}
-          isAdmin={isAdmin}
         />
       ) : null}
 
